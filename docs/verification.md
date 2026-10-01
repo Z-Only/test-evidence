@@ -81,3 +81,19 @@ only skips Cargo's packaging verification stage; the separate clean install
 actually compiles the extracted archive, and the runner exercises that installed
 executable outside the source checkout. Offline installation requires cached
 Cargo dependencies and a locally available toolchain.
+
+## macOS filename-test portability correction
+
+The initial macOS 15 ARM64 CI run (job `110563680666`) rejected creation of
+non-UTF-8 fixture filenames and directories with OS error 92, `Illegal byte
+sequence`, before the loader ran. Those two raw-byte creation tests now run on
+Linux, where the tested filesystem accepts such names. Unix socket/non-regular
+input tests remain enabled on macOS. A separate Unix CLI test passes an invalid
+byte sequence as an explicit input path without creating it and requires an
+inconclusive JSON result and exit 2. Production validation and the macOS CI job
+are unchanged.
+
+After this correction, Linux verification passed `cargo test --locked
+--all-targets` (43 unit tests and 27 CLI integration tests) and `cargo clippy
+--locked --all-targets -- -D warnings`. These local results do not establish a
+macOS pass; the corrected tests still require an actual macOS CI rerun.

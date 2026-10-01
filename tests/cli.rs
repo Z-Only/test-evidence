@@ -345,16 +345,22 @@ fn mapping_missing_file_and_directory_fail_cleanly() {
     }
 }
 
-#[cfg(unix)]
+#[cfg(target_os = "linux")]
 #[test]
-fn non_utf8_paths_and_non_regular_inputs_fail_closed() {
-    use std::os::unix::{ffi::OsStringExt, net::UnixListener};
+fn non_utf8_report_filename_is_rejected() {
+    use std::os::unix::ffi::OsStringExt;
     let temp = Temp::new();
     let filename = std::ffi::OsString::from_vec(vec![
         b'T', b'E', b'S', b'T', b'-', 255, b'.', b'x', b'm', b'l',
     ]);
     fs::write(temp.0.join(filename), pass()).unwrap();
     assert_eq!(code(&compare(&temp.0, &fixture("pass.xml"), &[])), 2);
+}
+
+#[cfg(unix)]
+#[test]
+fn non_regular_inputs_fail_closed() {
+    use std::os::unix::net::UnixListener;
     let other = Temp::new();
     other.write("TEST-good.xml", pass());
     let path = other.0.join("socket");
@@ -436,7 +442,7 @@ fn unreadable_inputs_and_symlink_auxiliary_files_are_rejected() {
     assert!(String::from_utf8_lossy(&out.stderr).contains("symbolic links"));
 }
 
-#[cfg(unix)]
+#[cfg(target_os = "linux")]
 #[test]
 fn non_utf8_directory_scope_is_rejected() {
     use std::os::unix::ffi::OsStringExt;
@@ -463,4 +469,25 @@ fn rejected_report_diagnostics_identify_relative_source_without_absolute_path() 
     let out = compare(&warning, &fixture("pass.xml"), &["--format", "json"]);
     assert_eq!(code(&out), 2);
     assert!(String::from_utf8_lossy(&out.stdout).contains("TEST-warning.xml"));
+}
+
+#[cfg(unix)]
+#[test]
+fn invalid_byte_explicit_path_is_rejected_without_creation() {
+    use std::os::unix::ffi::OsStringExt;
+    let temp = Temp::new();
+    // Unix arguments may contain arbitrary non-NUL bytes even when a filesystem
+    // (such as the macOS CI filesystem) rejects creating a name with those bytes.
+    // Exercise the real CLI's path/error handling without assuming creation works.
+    let path = temp.0.join(std::ffi::OsString::from_vec(vec![255]));
+    let out = compare(&path, &fixture("pass.xml"), &["--format", "json"]);
+    assert_eq!(code(&out), 2);
+    assert_eq!(json(&out)["verdict"], "inconclusive");
+    assert!(
+        json(&out)["diagnostics"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .any(|message| { message.as_str().unwrap().contains("cannot inspect input") })
+    );
 }
