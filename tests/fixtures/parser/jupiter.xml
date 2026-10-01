@@ -1,0 +1,8 @@
+<testsuites tests="2">
+  <testsuite name="Jupiter engine" tests="2">
+    <testsuite name="NestedContainer" tests="2">
+      <testcase classname="example.Test$Nested" name="parameterized(String)[1]" time="1e-3"><vendor-extension><text><![CDATA[irrelevant output]]></text></vendor-extension></testcase>
+      <testcase classname="example.Test$Nested" name="parameterized(String)[2]" time="0"/>
+    </testsuite>
+  </testsuite>
+</testsuites>
