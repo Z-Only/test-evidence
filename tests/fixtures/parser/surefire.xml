@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="example.MigrationTest" tests="5" failures="1" errors="1" skipped="1" time="0.25">
+  <properties><property name="java.version" value="21"/></properties>
+  <testcase name="passes &amp; preserves &quot;identity&quot;" classname="example.MigrationTest" time="0.01"/>
+  <testcase name="assertionFails" classname="example.MigrationTest" time="0.02"><failure message="SECRET" type="AssertionError"><![CDATA[private stacktrace <token>]]></failure></testcase>
+  <testcase name="throws" classname="example.MigrationTest"><error type="Exception">secret error body</error></testcase>
+  <testcase name="disabled" classname="example.MigrationTest"><skipped message="private reason"/></testcase>
+  <testcase name="eventuallyPasses" classname="example.MigrationTest" time="0.2"><flakyFailure type="AssertionError"><stackTrace>private retry</stackTrace></flakyFailure><flakyError/><system-out>SECRET</system-out></testcase>
+  <system-err>secret suite output</system-err>
+</testsuite>

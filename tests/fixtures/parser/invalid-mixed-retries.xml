@@ -1,0 +1,6 @@
+<testsuite name="InvalidRetryDialect">
+  <testcase classname="example.RetryTest" name="contradictoryFamilies">
+    <flakyFailure/>
+    <rerunError/>
+  </testcase>
+</testsuite>

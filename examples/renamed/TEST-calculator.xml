@@ -1,0 +1,1 @@
+<testsuite name="calculator" tests="3" failures="0" errors="0" skipped="0"><testcase classname="CalculatorTest" name="addsNumbers" time="0.01"></testcase><testcase classname="CalculatorTest" name="subtracts" time="0.02"></testcase><testcase classname="CalculatorTest" name="输入中文" time="0.03"></testcase></testsuite>

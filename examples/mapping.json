@@ -1,0 +1,24 @@
+[
+  {
+    "baseline": {
+      "scope": "",
+      "id": {
+        "suite": [
+          "calculator"
+        ],
+        "classname": "CalculatorTest",
+        "name": "adds"
+      }
+    },
+    "candidate": {
+      "scope": "",
+      "id": {
+        "suite": [
+          "calculator"
+        ],
+        "classname": "CalculatorTest",
+        "name": "addsNumbers"
+      }
+    }
+  }
+]

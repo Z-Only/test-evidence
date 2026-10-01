@@ -1,0 +1,1 @@
+<report name="synthetic"><package name="example"><class name="example/Calculator"><counter type="LINE" missed="2" covered="9"/></class></package><counter type="LINE" missed="2" covered="9"/><counter type="BRANCH" missed="1" covered="3"/></report>

@@ -1,0 +1,1 @@
+<report name="example"><package name="example"><class name="example/Calculator"/></package><counter type="LINE" missed="1" covered="9"/><counter type="BRANCH" missed="1" covered="3"/></report>

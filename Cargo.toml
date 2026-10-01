@@ -1,0 +1,18 @@
+[package]
+name = "test-evidence"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.98.1"
+description = "Offline evidence accounting for AI-assisted test migrations"
+license = "MIT"
+repository = "https://github.com/Z-Only/test-evidence"
+publish = false
+
+[dependencies]
+clap = { version = "=4.6.7", features = ["derive"] }
+quick-xml = "=0.42.0"
+serde = { version = "=1.0.229", features = ["derive"] }
+serde_json = "=1.0.151"
+
+[lints.rust]
+unsafe_code = "forbid"

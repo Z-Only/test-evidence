@@ -1,0 +1,1 @@
+<testsuite name="calculator" ><testcase classname="CalculatorTest" name="输入中文 ``` [link](https://example.invalid) &lt;script&gt; \u001b[31m ‮" time="0.01"></testcase></testsuite>
